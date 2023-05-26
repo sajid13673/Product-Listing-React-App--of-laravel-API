@@ -10,7 +10,7 @@ export default function ProductList(props){
     // React.useEffect(()=>{
     //     console.log('status changed')
     // },[status])
-    const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/laravel-product-list-frontend.appspot.com/o/images%2Fno%20image.jpg?alt=media&token=b38e2d03-0460-49a9-97e1-55711a8494cf';
+    const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/laravel-product-list-frontend.appspot.com/o/images%2Fno%20image.jpg?alt=media&token=cfaed1bd-c1f4-4566-8dca-25b05e101829';
     return(
         <div className='ProductDetails'>
             <p>SKU: {props.sku}</p>

@@ -5,7 +5,7 @@ export default function ProductForm(props){
         sku:"",
         name:"",
         price:"",
-        image:"",
+        imageFile:"",
     });
     function handleChange(event){
         //console.log(event.target.name);
@@ -35,7 +35,6 @@ export default function ProductForm(props){
             name: data.name,
             sku: data.sku,
             price: data.price,
-            image: data.image
           };
         });
       }
@@ -55,7 +54,7 @@ export default function ProductForm(props){
                 <br/>
                 <input type="text" name="price" value={formData.price} onChange={handleChange}/>
                 Image:
-                <input type="file" name="image" onChange={handleImage}/>
+                <input type="file" name="imageFile" onChange={handleImage}/>
             </form>
             {/* <button onClick={uploadImage}>Upload image</button> */}
 

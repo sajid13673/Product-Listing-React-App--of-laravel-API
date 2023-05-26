@@ -5,9 +5,10 @@ import ProductList from "./components/productList";
 import AddProduct from "./components/addProduct";
 import EditProduct from "./components/editProduct";
 import { Route, Routes } from "react-router-dom";
-import {data} from './components/data';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { storage } from "./firebase";
+import {ref, deleteObject} from "firebase/storage";
 
 export default function App() {
   const navigate = useNavigate();
@@ -20,10 +21,10 @@ export default function App() {
         name={item.name}
         sku={item.sku}
         price={item.price}
-        image={item.image}
+        image={item.imageLink}
         status={item.status}
         handleEdit={() => handleEdit(item.id)}
-        handleDelete = {()=>handleDelete(item.id)}
+        handleDelete = {()=>handleDelete(item.id, item.imageName)}
         handleStatus = {()=>handleStatus(item.id, item.status)}
       />
     );
@@ -41,10 +42,18 @@ export default function App() {
   function handleEdit(id){
     navigate('edit-product',{state:{id : id}})
 }
-function handleDelete(id){
-  axios.post('http://127.0.0.1:8000/api/item/'+id,{_method: 'delete'})
-  .then(()=>{
-  getProducts();})
+function handleDelete(id, imageName) {
+  axios
+    .post("http://127.0.0.1:8000/api/item/" + id, { _method: "delete" })
+    .then(() => {
+      deleteFromFireBase(imageName);
+      getProducts();
+    });
+}
+function deleteFromFireBase(imageName){
+  const desertRef = ref(storage, `images/${imageName}`);
+      // Delete the file
+      deleteObject(desertRef);
 }
 function handleStatus(id, status){
 const data = new FormData();
@@ -88,6 +97,7 @@ axios.post(`http://127.0.0.1:8000/api/item/${id}`, data)
               updateStatus={update}
               setNavStatus = {(status)=>setNavStatus(status)}
               getProducts = {()=>getProducts()}
+              deleteFromFireBase = {(imageName)=>deleteFromFireBase(imageName)}
 
             />
           }
