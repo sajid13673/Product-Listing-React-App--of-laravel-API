@@ -51,9 +51,9 @@ function handleDelete(id, imageName) {
     });
 }
 function deleteFromFireBase(imageName){
+  if(imageName != null){
   const desertRef = ref(storage, `images/${imageName}`);
-      // Delete the file
-      deleteObject(desertRef);
+      deleteObject(desertRef);}
 }
 function handleStatus(id, status){
 const data = new FormData();
