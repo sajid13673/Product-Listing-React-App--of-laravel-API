@@ -20,10 +20,11 @@ export default function AddProduct(props){
           const $message = response.data.message;
           const $status = response.data.status;
           if ($status) {
-            axios.post("http://127.0.0.1:8000/api/item", formData);
-            props.getProducts();
+            axios.post("http://127.0.0.1:8000/api/item", formData).then(()=>{
             navigate("/");
+            props.getProducts();
             props.setNavStatus(false);
+            })
           } else {
             alert($message);
           }
