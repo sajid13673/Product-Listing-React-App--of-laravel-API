@@ -31,7 +31,6 @@ export default function EditProduct(props){
         axios
           .post("http://127.0.0.1:8000/api/item/editValidation", form)
           .then((response) => {
-            //console.log(response.data.message);
             console.log(response.data);
             const message = response.data.message;
             const status = response.data.status;
@@ -40,6 +39,7 @@ export default function EditProduct(props){
               axios.post(`http://127.0.0.1:8000/api/item/${id}`, form);
               props.getProducts();
               navigate("/");
+              props.setUpdate(false);
               props.setNavStatus(false);
             } else {
               alert(message);
@@ -60,9 +60,14 @@ export default function EditProduct(props){
                   form.append("_method", "put");
                   form.append("imageLink", url);
                   form.append("imageName", imageName);
+                  form.delete("id");
                   axios.post(`http://127.0.0.1:8000/api/item/${id}`, form);
-                  props.deleteFromFireBase(productWithID.imageName);
+                  console.log(productWithID)
+                  if (productWithID.images !== null){
+                  props.deleteFromFireBase(productWithID.images.imageName);
+                }
                   props.setNavStatus(false);
+                  props.setUpdate(false);
                   navigate("/");
                   props.getProducts();
                 });

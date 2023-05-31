@@ -21,10 +21,10 @@ export default function App() {
         name={item.name}
         sku={item.sku}
         price={item.price}
-        image={item.imageLink}
+        image={item.images}
         status={item.status}
         handleEdit={() => handleEdit(item.id)}
-        handleDelete = {()=>handleDelete(item.id, item.imageName)}
+        handleDelete = {()=>handleDelete(item.id, item.images.imageName)}
         handleStatus = {()=>handleStatus(item.id, item.status)}
       />
     );
@@ -34,7 +34,7 @@ export default function App() {
      axios.get('http://127.0.0.1:8000/api/item').then(function(response){
       setProductStatus(true);
       setProducts(response.data);
-      console.log("get prod ");
+      console.log(response.data);
   });
   }
   const  [navStatus, setNavStatus] = React.useState(false);
