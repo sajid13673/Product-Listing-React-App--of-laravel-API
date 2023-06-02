@@ -40,24 +40,24 @@ export default function ProductForm(props){
       }
     }, [props.data]);
     return(
-        <div className="add_form">
+        <div className="div-form">
             <form id="product-form" onSubmit={handleSubmit} encType="multipart/form">
-                SKU:
-                <br/>
+                <p>SKU:</p>
+                {/* <br/> */}
                 <input type="text" name="sku" value={formData.sku} onChange={handleChange}/>
-                <br/>
-                Name:
-                <br/>
+                {/* <br/> */}
+                <p>Name:</p>
+                {/* <br/> */}
                 <input type="text" name="name" value={formData.name} onChange={handleChange}/>
-                <br/>
-                Price:
-                <br/>
+                {/* <br/> */}
+                <p>Price:</p>
+                {/* <br/> */}
                 <input type="text" name="price" value={formData.price} onChange={handleChange}/>
-                Image:
-                <input type="file" name="imageFile" onChange={handleImage}/>
+                {/* <br/> */}
+                <p>Image:</p>
+                {/* <br/> */}
+                <input type="file" className='file-input' name="imageFile" onChange={handleImage}/>
             </form>
-            {/* <button onClick={uploadImage}>Upload image</button> */}
-
         </div>
     )
 }

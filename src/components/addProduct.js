@@ -69,9 +69,11 @@ export default function AddProduct(props){
         props.setNavStatus(true)
     },[])
     return(
+      <div className='addProduct-div'>
         <ProductForm 
         handleAdd = {(event, FormData)=>handleAdd(event, FormData)}
         updateStatus = {props.updateStatus}
         />
+        </div>
     )
 }
