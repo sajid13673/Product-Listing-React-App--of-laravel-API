@@ -29,12 +29,35 @@ export default function App() {
       />
     );
   });
+  const emptyList = <div className="emptyList"> <h1>Product List is empty</h1> </div>;
+  const sort = <select className='sortSelect' onChange={handleChangeSort}>
+    <option selected disabled>Sort by:</option>
+    <option value='sku,asc'>SKU Ascending</option>
+    <option value='sku,desc'>SKU Descending</option>
+    <option value='name,asc'>Name Ascending</option>
+    <option value='name,desc'>Name Descending</option>
+    <option value='price,asc'>Price Low to High</option>
+    <option value='price,desc'>Price High to Low</option>
+    <option value='created_at,asc'>Oldest to Newest</option>
+    <option value='created_at,desc'>Newest to Oldest</option>
+  </select>
+  function handleChangeSort(event){
+    const value = event.target.value;
+    const valArr = value.split(",");
+    const data = {key: valArr[0], order: valArr[1]};
+    axios.post('http://127.0.0.1:8000/api/item/sort',data).then((response)=>{
+      console.log(response.data);
+      setProducts(response.data)
 
+    })
+  }
   function getProducts(){
      axios.get('http://127.0.0.1:8000/api/item').then(function(response){
-      setProductStatus(true);
       setProducts(response.data);
-      console.log(response.data);
+      if(response.data.length != 0){
+        setProductStatus(true);
+      }
+      console.log("get",response.data);
   });
   }
   const  [navStatus, setNavStatus] = React.useState(false);
@@ -98,15 +121,17 @@ axios.post(`http://127.0.0.1:8000/api/item/${id}`, data)
               setNavStatus = {(status)=>setNavStatus(status)}
               getProducts = {()=>getProducts()}
               deleteFromFireBase = {(imageName)=>deleteFromFireBase(imageName)}
-
             />
           }
         />
         <Route
           path="/"
-          element={<div className='products'>
-            {productStatus &&  prooductList}
-            </div>
+          element={<div className='product_list'>
+          {productStatus && sort}
+            <div className='products'>
+          {productStatus ?  prooductList : emptyList}
+          </div>
+          </div>
           }
         />
       </Routes>
