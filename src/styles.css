@@ -154,6 +154,32 @@ nav{
     margin-top: 10px;
 
 }
+
+.sortSelect{
+    display: block;
+    border: none;
+    color: #02325a;
+    background: transparent;
+    border-bottom: 2px solid #02325a;
+    height: 2.5em;
+    width: 11em;
+    padding: 5px 5px 2px 5px;
+    margin: 10px 10px 0 auto;
+}
+.sortSelect:hover{
+    cursor: pointer;
+    border: solid #02325a 2px;
+    border-radius: 5px;
+    color: #02325a;
+    width: 12em;
+    box-shadow: 0 0.5em 0.5em -0.4em #02325a;
+
+}
+.sortSelect:focus{
+    background: #03589e;
+    color: white;
+    box-shadow: 5px 5px 5px 5px;
+}
 @media screen and (min-width: 768px) {
     .products{
     grid-template-columns: repeat(2, 1fr); 
