@@ -24,7 +24,7 @@ export default function App() {
         image={item.images}
         status={item.status}
         handleEdit={() => handleEdit(item.id)}
-        handleDelete = {()=>handleDelete(item.id, item.images.imageName)}
+        handleDelete = {()=>handleDelete(item.id, item.images)}
         handleStatus = {()=>handleStatus(item.id, item.status)}
       />
     );
@@ -65,11 +65,14 @@ export default function App() {
   function handleEdit(id){
     navigate('edit-product',{state:{id : id}})
 }
-function handleDelete(id, imageName) {
+function handleDelete(id, image) {
   axios
     .post("http://127.0.0.1:8000/api/item/" + id, { _method: "delete" })
     .then(() => {
-      deleteFromFireBase(imageName);
+      if (image !== null) {
+        const imageName = image.imageName;
+        deleteFromFireBase(imageName);
+      }
       getProducts();
     });
 }
