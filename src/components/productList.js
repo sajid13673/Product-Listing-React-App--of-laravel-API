@@ -40,10 +40,10 @@ export default function ProductList(props){
     },[statusHover, props.status])
     return(
         <div className='ProductDetails'>
+            <img className='productImage' src={props.image !== null ? props.image.imageLink : defaultImage} alt='productImage'/>
             <p>SKU: {props.sku}</p>
             <p>Name: {props.name}</p>
             <p>Price: $ {props.price}</p>
-            <img className='productImage' src={props.image !== null ? props.image.imageLink : defaultImage} alt='productImage'/>
             <div className='product-buttons'>
             <button className="statusBar" onMouseOver={handleMouseover} onMouseOut={handleMouseOut} style={statusStyle} onClick={props.handleStatus}>{status}  <i className={statusIcon}></i></button>
             <button className='btn-edit' onClick={props.handleEdit}> <i class="fa-solid fa-pen-to-square fa-xl"></i> </button>

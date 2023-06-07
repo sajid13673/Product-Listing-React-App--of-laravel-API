@@ -40,6 +40,7 @@ nav{
     justify-content: space-between;
     padding: 20px 40px;
     border-radius: 3px;
+    min-width: 810px;
 }
 .nav-header{
     font-family: 'poppins';
@@ -60,7 +61,10 @@ nav{
 }
 .btn-add{
     width: 140px;
-    margin:0 auto 0 0 ;
+    display: block;
+    /* margin: 10px 10px 0 auto; */
+    /* margin-right: auto; */
+    /* margin:0 0 0 0 ; */
 }
 .btn-add:hover{
     background-color: #02325a;
@@ -98,17 +102,19 @@ nav{
 .ProductDetails{
     padding: 10px;
     border: solid 1px rgb(132, 215, 248);
-    justify-content: center;
     width: 300px;
-    height: 275px;
-    text-align: center;
+    height: 300px;
+    text-align: left;
     border-radius: 7px;  
     background: white;
 }
-
+.ProductDetails p{
+    margin-left: 1.5em;
+}
 .productImage{
+    display: block;
     height:115px;
-    margin-top: 6px;
+    margin: 0 auto 6px auto;
 }
 .ProductDetails:hover{
     background: #02325a;
@@ -259,6 +265,120 @@ select:-webkit-autofill:hover {
     /*use inset box-shadow to cover background-color*/
     -webkit-text-fill-color: white !important;
     /*use text fill color to cover font color*/   
+}
+/* toggle switch */
+/* styling lable */
+.toggle {
+    --width: 7em;
+    --height: 2.1em;
+
+    position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: 2.5em;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: var(--height);
+    cursor: pointer;
+    margin: auto auto 7px 25px;
+}
+/* hiding checkbox */
+.toggle input {
+    display: none;
+}
+/* Creating slider */
+.toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7em;
+    height: 2.4em;
+    border-radius: 7px;
+    background-color: #fa0000;
+    transition: all 0.4s ease-in-out;
+}
+.toggle .slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(var(--height));
+    height: calc(var(--height));
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+}
+/* Adding slider effect */
+.toggle input:checked + .slider {
+    background-color: #018613;
+}
+.toggle input:checked + .slider::before {
+    transform: translateX(calc(var(--width) - var(--height) - 5px));
+}
+/* Adding text in the toggle button */
+.toggle .labels {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::after {
+    content: attr(data-off);
+    position: absolute;
+    right: 5px;
+    color: white;
+    opacity: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::before {
+    content: attr(data-on);
+    position: absolute;
+    left: 5px;
+    color: #ffffff;
+    opacity: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked~.labels::after {
+    opacity: 0;
+}
+
+.toggle input:checked~.labels::before {
+    opacity: 1;
+}
+/* Toggle switch hover */
+.toggle:hover .slider {
+    background: white; 
+    box-shadow: 0 0.5em 0.5em -0.4em #ffffff;
+}
+.toggle:hover input:checked + .slider{
+    background: white; 
+    box-shadow: 0 0.5em 0.5em -0.4em #ffffff;
+}
+.toggle:hover .slider::before{
+    background: green;
+}
+.toggle:hover input:checked + .slider::before{
+    background: red;
+}
+.toggle:hover .labels::before, .toggle:hover .labels::after{
+    color: black;
+}
+.toggle:hover .labels::before{
+    content: 'Inactivate';
+    font-size: 14.3px;
+    color: red;
+}
+.toggle:hover .labels::after{
+    content: 'Activate';
+    color: green;
 }
 /*footer*/
 footer {
