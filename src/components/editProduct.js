@@ -22,8 +22,7 @@ export default function EditProduct(props){
       props.setNavStatus(true);
     }, []);
 
-    function handleUpdate(event, formData) {
-      event.preventDefault();
+    function handleUpdate(formData) {
       const form = new FormData();
       Object.keys(formData).map((key) => form.append(key, formData[key]));
       form.append("id", id);

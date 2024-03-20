@@ -238,6 +238,10 @@ nav{
 .file-input{
     max-width: 20em;
 }
+.error{
+    color: #fa0000;
+    font-size: 12px;
+}
 /* Fixing the issue of input styles chaged when using autofill */
 input:-webkit-autofill,
 textarea:-webkit-autofill,

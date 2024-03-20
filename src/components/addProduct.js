@@ -7,8 +7,9 @@ import {useNavigate} from 'react-router-dom';
 
 export default function AddProduct(props){
     const navigate = useNavigate();
-    function handleAdd(event, formData){
-        event.preventDefault();
+    function handleAdd(formData){
+      console.log(formData);
+        // event.preventDefault();
 
  
     if (formData.imageFile == "") {
