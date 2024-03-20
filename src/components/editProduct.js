@@ -28,32 +28,37 @@ export default function EditProduct(props){
       Object.keys(formData).map((key) => form.append(key, formData[key]));
       form.append("id", id);
       if (formData.imageFile == "") {
-        axios
-          .post("http://127.0.0.1:8000/api/item/editValidation", form)
-          .then((response) => {
-            console.log(response.data);
-            const message = response.data.message;
-            const status = response.data.status;
-            if (status) {
+        // axios
+        //   .post("http://127.0.0.1:8000/api/item/editValidation", form)
+        //   .then((response) => {
+        //     console.log(response.data);
+        //     const message = response.data.message;
+        //     const status = response.data.status;
+        //     if (status) {
               form.append("_method", "put");
-              axios.post(`http://127.0.0.1:8000/api/item/${id}`, form);
-              props.getProducts();
-              navigate("/");
-              props.setUpdate(false);
-              props.setNavStatus(false);
-            } else {
-              alert(message);
-            }
-          });
+              axios.post(`http://127.0.0.1:8000/api/item/${id}`, form).then(res =>{
+                console.log(res.data);
+                props.getProducts();
+                navigate("/");
+                props.setUpdate(false);
+                props.setNavStatus(false);
+              }).catch(err => {
+                console.log(err.response.data.message);
+              });
+              
+          //   } else {
+          //     alert(message);
+          //   }
+          // });
       } else {
-        axios
-          .post("http://127.0.0.1:8000/api/item/editValidation", form)
-          .then(function (response) {
-            console.log(response.data);
-            const $message = response.data.message;
-            const $status = response.data.status;
+        // axios
+        //   .post("http://127.0.0.1:8000/api/item/editValidation", form)
+        //   .then(function (response) {
+        //     console.log(response.data);
+        //     const $message = response.data.message;
+        //     const $status = response.data.status;
             const imageName = `${formData.sku}_${formData.imageFile.name}`;
-            if ($status) {
+        //     if ($status) {
               const imageRef = ref(storage, `images/${imageName}`);
               uploadBytes(imageRef, formData.imageFile).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
@@ -61,21 +66,26 @@ export default function EditProduct(props){
                   form.append("imageLink", url);
                   form.append("imageName", imageName);
                   form.delete("id");
-                  axios.post(`http://127.0.0.1:8000/api/item/${id}`, form);
+                  axios.post(`http://127.0.0.1:8000/api/item/${id}`, form).then(res =>{
+                    console.log(res.data);
+                    if (productWithID.images !== null){
+                      props.deleteFromFireBase(productWithID.images.imageName);
+                    }
+                      props.setNavStatus(false);
+                      props.setUpdate(false);
+                      navigate("/");
+                      props.getProducts();
+                  }).catch(err => {
+                    console.log(err.response.data.message);
+                  });
                   console.log(productWithID)
-                  if (productWithID.images !== null){
-                  props.deleteFromFireBase(productWithID.images.imageName);
-                }
-                  props.setNavStatus(false);
-                  props.setUpdate(false);
-                  navigate("/");
-                  props.getProducts();
+                  
                 });
               });
-            } else {
-              alert($message);
-            }
-          });
+          //   } else {
+          //     alert($message);
+          //   }
+          // });
       }
     }
   

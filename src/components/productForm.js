@@ -6,11 +6,12 @@ export default function ProductForm(props){
         name:"",
         price:"",
         imageFile:"",
-        status:false
+        status:0
     });
     function handleChange(event){
         const value = event.target.value;
-        const checked = event.target.checked;
+        const checked = event.target.checked ? 1 : 0;
+        console.log(checked);
         const type = event.target.type;
         setFormData(prevFormData=>{return{...prevFormData, [event.target.name] : type ==='checkbox' ? checked : value}})
     }

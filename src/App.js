@@ -44,8 +44,8 @@ export default function App() {
   function handleChangeSort(event){
     const value = event.target.value;
     const valArr = value.split(",");
-    const data = {key: valArr[0], order: valArr[1]};
-    axios.post('http://127.0.0.1:8000/api/item/sort',data).then((response)=>{
+    // const data = {key: valArr[0], order: valArr[1]};
+    axios.get(`http://127.0.0.1:8000/api/item?sort=${valArr[0]}&order=${valArr[1]}`).then((response)=>{
       console.log(response.data);
       setProducts(response.data)
 
@@ -68,12 +68,21 @@ export default function App() {
 function handleDelete(id, image) {
   axios
     .post("http://127.0.0.1:8000/api/item/" + id, { _method: "delete" })
-    .then(() => {
-      if (image !== null) {
-        const imageName = image.imageName;
-        deleteFromFireBase(imageName);
+    .then((res) => {
+      console.log(res);
+      if (res.data.status) {
+        console.log(res.data.status);
+        if (image !== null) {
+          const imageName = image.imageName;
+          deleteFromFireBase(imageName);
+        }
+        getProducts();
       }
-      getProducts();
+      else{
+        console.log(res.data.message);
+      }
+    }).catch(err => {
+      console.log(err.response.data.message);
     });
 }
 function deleteFromFireBase(imageName){
@@ -83,7 +92,7 @@ function deleteFromFireBase(imageName){
 }
 function handleStatus(id, status){
 const data = new FormData();
-data.append('status', !status);
+data.append('status', status ? 0 : 1);
 data.append('_method', 'put');
 axios.post(`http://127.0.0.1:8000/api/item/${id}`, data)
 .then(()=>{
