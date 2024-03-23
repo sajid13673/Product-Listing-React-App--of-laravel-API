@@ -27,13 +27,6 @@ export default function EditProduct(props){
       Object.keys(formData).map((key) => form.append(key, formData[key]));
       form.append("id", id);
       if (formData.imageFile == "") {
-        // axios
-        //   .post("http://127.0.0.1:8000/api/item/editValidation", form)
-        //   .then((response) => {
-        //     console.log(response.data);
-        //     const message = response.data.message;
-        //     const status = response.data.status;
-        //     if (status) {
               form.append("_method", "put");
               axios.post(`http://127.0.0.1:8000/api/item/${id}`, form).then(res =>{
                 console.log(res.data);
@@ -44,20 +37,8 @@ export default function EditProduct(props){
               }).catch(err => {
                 console.log(err.response.data.message);
               });
-              
-          //   } else {
-          //     alert(message);
-          //   }
-          // });
       } else {
-        // axios
-        //   .post("http://127.0.0.1:8000/api/item/editValidation", form)
-        //   .then(function (response) {
-        //     console.log(response.data);
-        //     const $message = response.data.message;
-        //     const $status = response.data.status;
             const imageName = `${formData.sku}_${formData.imageFile.name}`;
-        //     if ($status) {
               const imageRef = ref(storage, `images/${imageName}`);
               uploadBytes(imageRef, formData.imageFile).then((snapshot) => {
                 getDownloadURL(snapshot.ref).then((url) => {
@@ -81,13 +62,8 @@ export default function EditProduct(props){
                   
                 });
               });
-          //   } else {
-          //     alert($message);
-          //   }
-          // });
       }
     }
-  
     return(
         <ProductForm
         handleUpdate = {(event, formData)=>handleUpdate(event, formData)}
