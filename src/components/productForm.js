@@ -3,13 +3,6 @@ import { isInteger, useFormik } from "formik";
 import axios from "axios";
 
 export default function ProductForm(props){
-  const [formData, setFormData] = React.useState({
-      sku:"",
-      name:"",
-      price:"",
-      imageFile:"",
-      status:0
-  });
   function countDecimals (value) {
     if(Math.floor(value) === value) return 0;
     return value.toString().split(".")[1].length || 0; 
@@ -82,18 +75,7 @@ export default function ProductForm(props){
   function handleChange(event){
       const checked = event.target.checked ? 1 : 0;
       console.log(checked);
-      // setFormData(prevFormData=>{return{...prevFormData, [event.target.name] : type ==='checkbox' ? checked : value}})
       formik.setFieldValue('status', checked);
-  }
-  function handleSubmit(event) {
-      event.preventDefault();
-      console.log(props.updateStatus)
-      if(props.updateStatus){
-          props.handleUpdate(event, formData);
-      }
-      else {
-          props.handleAdd(event, formData);
-      }
   }
   function handleImage(event){
     var file = event.target.files[0];
